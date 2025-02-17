@@ -1,3 +1,5 @@
+// Trinh Huu Hoang Anh - 2180606064
+
 let Student = function(name, age, score1, score2){
     this.name=name;
     this.age=age;
