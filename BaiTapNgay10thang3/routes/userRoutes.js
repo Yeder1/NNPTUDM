@@ -1,9 +1,8 @@
 const express = require("express");
-const { User, Role } = require("../models/User");
+const User = require("../models/User");
 
 const router = express.Router();
 
-// Create User
 router.post("/", async (req, res) => {
   try {
     const user = new User(req.body);
@@ -14,7 +13,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get All Users (Filter by username, fullName, loginCount)
 router.get("/", async (req, res) => {
   try {
     const { username, fullName, minLogin, maxLogin } = req.query;
@@ -33,7 +31,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get User by ID
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate("role");
@@ -44,7 +41,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Get User by Username
 router.get("/username/:username", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username }).populate("role");
@@ -55,7 +51,6 @@ router.get("/username/:username", async (req, res) => {
   }
 });
 
-// Soft Delete User (Set status = false)
 router.delete("/:id", async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, { status: false }, { new: true });
@@ -66,7 +61,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Activate User (Set status = true)
+
 router.post("/activate", async (req, res) => {
   try {
     const { email, username } = req.body;
